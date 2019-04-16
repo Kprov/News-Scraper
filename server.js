@@ -25,6 +25,12 @@ app.use(express.json());
 //make public folder static
 app.use(express.static("public"));
 
+//set handlebars
+const exphbs = require("express-handlebars");
+
+app.engine("handlesbars", exphbs({ defaultLayout: "main"}));
+app.set("view engine", "handlebars");
+
 //connect to mongodb
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
@@ -44,7 +50,7 @@ app.get("/scrape"), (req,res) => {
             //save empty result as an object
             let result = {};
 
-            //add text and href of each article
+            //add text and href of each linkn and save as properties of the result object
             result.title = $(this)
                 .children("a")
                 .attr("href");
