@@ -28,7 +28,7 @@ app.use(express.static("public"));
 //connect to mongodb
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-mongoose.connect("MONGODB_URI");
+mongoose.connect(MONGODB_URI);
 
 
 //routes
@@ -37,6 +37,8 @@ app.get("/scrape"), (req,res) => {
 
     axios.get("https://www.chicagotribune.com/").then((response) => {
         const $ = cheerio.load(response.data);
+
+        console.log(respone.data)
 
         $("article h2").each((i, element) => {
             //save empty result as an object
